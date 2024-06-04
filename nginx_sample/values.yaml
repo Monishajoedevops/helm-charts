@@ -1,0 +1,6 @@
+# UI controll
+title: "Welcome to Elastic Kubernetes Service (EKS)"
+
+# Service controlls
+serviceName: nginx-example
+serviceType: ClusterIP

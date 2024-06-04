@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-example-{{.Release.Name}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-example-{{.Release.Name}}
+  template:
+    metadata:
+      labels:
+        app: nginx-example-{{.Release.Name}}
+    spec:
+      containers:
+      - name: nginx-example-{{.Release.Name}}
+        image: nginx:1.26.1
+        ports:
+        - containerPort: 80
+        env:
+        - name: TITLE
+          value: {{ .Values.title }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.serviceName }}
+spec:
+  type: {{ .Values.serviceType }}
+  ports:
+  - port: 80
+  selector:
+    app: nginx-example-{{.Release.Name}}
